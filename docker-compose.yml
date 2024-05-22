@@ -1,0 +1,27 @@
+version: "3"
+services:
+  mongo:
+    image: mongo
+    container_name: mongo
+    hostname: mongo
+    restart: always
+    command: mongod --auth
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: rim
+      MONGO_INITDB_ROOT_PASSWORD: 467589opti
+      MONGO_INITDB_DATABASE: prod
+    ports:
+      - "27017:27017"
+    volumes:
+      - /var/www/mongo/data:/data/db
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+  server:
+    build: .
+    # command: node ./server.js #здесь можно перезаписать CMD из Dockerfile в /server /var/www/mongo
+    ports:
+      - "5000:5000"
+    links:
+      - mongo
+volumes:
+  mongodbdata:
+    driver: local

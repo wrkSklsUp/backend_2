@@ -1,0 +1,68 @@
+{
+  "measuringPoint": [
+    {
+      "_id": 1,
+      "number_point": 1,
+      "coordinates": [
+        120,
+        120
+      ],
+      "address": "Test.Street",
+      "description": "DDDDDDDDDDDDDDDDDDD"
+    }
+  ],
+  "waterState": [
+    {
+      "temperature": 10,
+      "acidity": 10,
+      "salt_level": 10,
+      "redox_potential": 10,
+      "oxygen_level": 10,
+      "light_transmittance": 10,
+      "date": "16.12.2023, 12:23:45"
+    },
+    {
+      "temperature": 20,
+      "acidity": 20,
+      "salt_level": 20,
+      "redox_potential": 20,
+      "oxygen_level": 20,
+      "light_transmittance": 20,
+      "date": "16.1.2023, 12:23:45"
+    },
+    {
+      "temperature": 30,
+      "acidity": 30,
+      "salt_level": 30,
+      "redox_potential": 30,
+      "oxygen_level": 30,
+      "light_transmittance": 30,
+      "date": "16.2.2023, 12:23:45"
+    },
+    {
+      "temperature": 40,
+      "acidity": 40,
+      "salt_level": 40,
+      "redox_potential": 40,
+      "oxygen_level": 40,
+      "light_transmittance": 40,
+      "date": "16.3.2023, 12:23:45"
+    }
+  ],
+  "users": [
+    {
+      "name_organization": "Some.Org",
+      "email": "Some@email.som",
+      "password": "awkgbweufue32r23d32",
+      "activation_link": "Moc.Activ.Link"
+    },
+    {
+      "name_organization": "Editor",
+      "email": "test@email.com",
+      "password": "123456",
+      "access_level": 1,
+      "is_activated": true,
+      "activation_link": "Moc.Activ.Link.Editor"
+    }
+  ]
+}
