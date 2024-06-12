@@ -1,7 +1,7 @@
 const path = require('path');
 const nodeEnv = process.env.NODE_ENV;
 const dev = nodeEnv !== 'production';
-require('dotenv').config({ path: path.join(__dirname, dev ? '../.development.env' : '../.production.env') });
+require('dotenv').config({ path: path.join(__dirname, dev ? '../.dev.env' : '../.production.env') });
 
 const clearData = require('./dbInitService/dbClear.js');
 const initDataDB = require('./dbInitService/dbInitProcess.js');
@@ -16,7 +16,7 @@ const compression = require('compression');
 const helmet = require('helmet');
 const bodyParser = require("body-parser");
 
-const PORT = process.env.LOCAL_PORT || 5000;
+const PORT = process.env.LOCAL_PORT || process.env.COMPOSE_LOCAL_PORT;
 const app = express();
 
 app.use(bodyParser.json({limit: '5mb'}));
@@ -39,7 +39,10 @@ module.exports = app;
 
 const start = async () => {
   try {
-    await mongoose.connect(process.env.DB_URL, {
+
+    const dbUrl = process.env.DB_URL || process.env.COMPOSE_DB_URL;
+
+    await mongoose.connect(dbUrl, {
       useUnifiedTopology: true,
       useNewUrlParser: true,
       useCreateIndex: true,
