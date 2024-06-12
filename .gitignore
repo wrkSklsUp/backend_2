@@ -1,4 +1,4 @@
 node_modules
 package-lock.json
-.development.env
+.dev.env
 .production.env
