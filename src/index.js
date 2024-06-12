@@ -16,7 +16,7 @@ const compression = require('compression');
 const helmet = require('helmet');
 const bodyParser = require("body-parser");
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.LOCAL_PORT || 5000;
 const app = express();
 
 app.use(bodyParser.json({limit: '5mb'}));
@@ -45,12 +45,13 @@ const start = async () => {
       useCreateIndex: true,
     });
 
-    app.listen(PORT, () => console.log(`Server started \nport: ${PORT}`));
+    app.listen(PORT);
     console.log('Предварительная очистка БД')
     await clearData();
     console.log('Внесение тестовых данны')
     await initDataDB(); // Внесение тестовых данны
     console.log('Запуск сервера');
+    console.log(`Server started \nport: ${PORT}`);
   } catch (error) {
     console.error(error);
   }

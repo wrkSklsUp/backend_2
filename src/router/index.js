@@ -45,7 +45,8 @@ router.post('/update/measuringpoint', authMiddleware, measuringPoint.updateMeasu
 router.post('/delete/measuringpoint', authMiddleware, measuringPoint.deleteMeasuringPoint);
 
 // FluorimetrData routes
-router.post('/add/fluorimetr/data',encodeMiddleware, fluorimetrData.addFlurometrData);
+// WARN!!: encodeMiddleware если данные идут реально с Флуориметра
+router.post('/add/fluorimetr/data', /*encodeMiddleware*/ fluorimetrData.addFlurometrData);
 router.get('/get/last/fluorimetr/data', fluorimetrData.getLastFlurometrDataById); // Через query
 // router.get('/get/fluorimetr/data/onDate', fluorimetrData.getFlurometrDataOnDate);
 

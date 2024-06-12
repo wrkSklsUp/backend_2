@@ -7,12 +7,13 @@
 
 module.exports = class FlurometrDataService{
 
-    constructor(flurometrDataModel, ApiError, flurometrDataDTO, flurometrModel){
+    constructor(flurometrDataModel, ApiError, flurometrDataDTO, flurometrModel, memcacheConnector){
 
         this.flurometrDataModel = flurometrDataModel,
         this.ApiError = ApiError,
         this.flurometrDataDTO = flurometrDataDTO,
-        this.flurometrModel = flurometrModel
+        this.flurometrModel = flurometrModel,
+        this.memcacheConnector = memcacheConnector
     }
 
     // Получить Последние данные для конкретного Флуориметра 
@@ -88,5 +89,28 @@ module.exports = class FlurometrDataService{
          * 2. Поверить результат поиска (Если запись не найдена -> Exception, в ином случае 
          *    удалить найденую запись)
         */
+    }
+
+    // Закешировать данные поступающие от Флуориметра
+    async chacheLatestFlurometrData(flurometr_name, flurometr_data){
+        const result = await this.memcacheConnector.add(flurometr_name, JSON.stringify(flurometr_data));
+        if(!result) throw this.ApiError.BadRequest("Данные не закешированны!");
+
+    }
+
+    // Получить последние/новые данные из кеша
+    async getLatestCachedFlurometrData(flurometr_name){
+        const resu = await this.memcacheConnector.get(flurometr_name);
+        return JSON.parse(resu.value);
+    }
+
+    // Кешировать средне-квадратичное значение данных от Флуориметра
+    async cacheAverageValueFlurometrData(){
+
+    }
+    
+    // Получить средне-квадратичное значение данных от Флуориметра
+    async getCachedAverageValueFlurometrData(){
+
     }
 }

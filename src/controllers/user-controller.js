@@ -54,8 +54,9 @@ class UserController {
         httpOnly: true,
         path:'/api/set_acc'
       });
-      console.log("USER LOGIN");
-      res.json(userData)
+
+      res.json(userData);
+      
     } catch (error) {
       next(error)
     }

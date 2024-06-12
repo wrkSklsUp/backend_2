@@ -5,31 +5,15 @@
   "main": "./src/index.js",
   "bin": "./src/index.js",
   "scripts": {
-    "dev": "nodemon ./src/index.js",
-    "deploy": "rsync --archive --compress --delete . rim@progress-aqua.com:/var/www/server && npm run update:docker",
-    "update:docker": "ssh -t rim@progress-aqua.com 'cd /var/www/server && docker compose down && docker compose up -d --no-deps --build'",
-    "update-config": "scp .production.env root@progress-aqua.com:/var/www/server",
-    "local:docker": "docker compose down && docker compose up -d --no-deps --build",
-    "test": "jest",
-    "build": "pkg package.json",
-    "delite:module": "rm -r node_modules",
-    "testDocker": "sudo docker run -d -p 27017:27017 mongo:latest"
+    "dev": "nodemon ./src/index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "body-parser": "1.19.1",
-    "jest": "27.4.5",
-    "nodemon": "2.0.8",
-    "pkg": "5.5.2",
-    "supertest": "6.3.4",
-    "uglify-js": "3.14.5",
-    "webpack-node-externals": "3.0.0"
-  },
   "dependencies": {
     "@types/jest": "27.0.3",
     "bcrypt": "5.0.1",
+    "body-parser": "1.19.1",
     "compression": "1.7.4",
     "cookie-parser": "1.4.5",
     "cors": "2.8.5",
@@ -38,32 +22,12 @@
     "express-validator": "6.12.0",
     "helmet": "5.0.1",
     "jsonwebtoken": "8.5.1",
+    "memjs": "^1.3.2",
     "mongodb": "3.6.9",
     "mongoose": "5.13.21",
     "nodemailer": "6.6.2",
+    "nodemon": "2.0.8",
     "pino": "8.19.0",
     "uuid": "8.3.2"
-  },
-  "pkg": {
-    "scripts": [
-      "node_modules/dotenv/**/*",
-      "node_modules/express/**/*",
-      "node_modules/cookie-parser/**/*",
-      "node_modules/bcrypt/**/*",
-      "node_modules/compression/**/*",
-      "node_modules/cors/**/*",
-      "node_modules/express-validator/**/*",
-      "node_modules/helmet/**/*",
-      "node_modules/jsonwebtoken/**/*",
-      "node_modules/mongodb/**/*",
-      "node_modules/mongoose/**/*",
-      "node_modules/nodemailer/**/*",
-      "node_modules/uuid/**/*",
-      "node_modules/uuid/**/*"
-    ],
-    "targets": [
-      "node14-linux"
-    ],
-    "outputPath": "dist"
   }
 }

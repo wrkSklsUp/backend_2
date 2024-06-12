@@ -3,37 +3,28 @@ const ApiError = require("../exceptions/api-error.js");
 const flurometrDataDTOClass = require("../dtos/flurometrData-dto.js");
 const flurometrModel = require('../models/flurometr-model.js');
 const flurometrDataServiceClass = require("../service/flurometrData-service.js");
+const memcache = require("../memcachConnector.js");
 
 const flurometrDataServiceObj = new flurometrDataServiceClass(
     flurometrDataModel, 
     ApiError, 
     flurometrDataDTOClass, 
-    flurometrModel
+    flurometrModel,
+    memcache
 );
 
 class FlurometrDataController{
 
-    // Получить все данные из таблици flurometrDataModel для конкретного Флюриметра
+    // Получить последние актуальные данные от флуориметра
     async getLastFlurometrDataById(req, res, next){
 
         const {flurometr_name} = req.query;
 
         try{
 
-            const result = await flurometrDataServiceObj.getLasFlurometrDataByFlurometrId(flurometr_name);
+            const result = await flurometrDataServiceObj.getLatestCachedFlurometrData(flurometr_name);
             res.json(result);
 
-        }catch(error){
-            next(error);
-        }
-    }
-
-    // В РАЗРАБОТКЕ!
-    async getFlurometrDataOnDate(req, res, next){
-        const {id_flurometr, date} = req.body;
-        try{
-            const result = await flurometrDataServiceObj.getFlurometrDataOnDate(id_flurometr, date);
-            // res.json(result);
         }catch(error){
             next(error);
         }
@@ -47,8 +38,18 @@ class FlurometrDataController{
         try{
 
             const result = await flurometrDataServiceObj.addFlurometrData(token, data, date);
+            await flurometrDataServiceObj.chacheLatestFlurometrData(token, req.body);
             res.json(result);
 
+        }catch(error){
+            next(error);
+        }
+    }
+
+    // Получить последние средне-квадратичное значение от флуориметра
+    async getLatestAverageValueFlurometrData(req, res, next){
+        try{
+            // TODO: Cache Call!
         }catch(error){
             next(error);
         }

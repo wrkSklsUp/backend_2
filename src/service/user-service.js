@@ -1,13 +1,4 @@
 
-const bcrypt = require('bcrypt');
-const uuid = require('uuid');
-const mailService = require('./mail-service');
-const tockenService = require('./tocken-service');
-const UserDto = require('../dtos/user-dto');
-const UserEditorDto = require('../dtos/userEditor-dto');
-const ApiError = require('../exceptions/api-error');
-const userModel = require('../models/user-model');
-
 module.exports = class UserService {
   constructor(
     bcrypt, 
@@ -77,7 +68,7 @@ module.exports = class UserService {
 
     const userDto = new this.UserDto(user);
 
-    const tokens = this.tockenService.generateTokens({ ...userDto });
+    const tokens = await this.tockenService.generateTokens({ ...userDto });
 
     await this.tockenService.saveToken(userDto.id, tokens.refreshToken);
     return { ...tokens, user: userDto };
